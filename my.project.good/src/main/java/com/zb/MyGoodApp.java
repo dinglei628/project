@@ -14,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableCaching
 public class MyGoodApp {
     public static void main(String[] args) {
-        //aaa
         SpringApplication.run(MyGoodApp.class, args);
     }
 }
