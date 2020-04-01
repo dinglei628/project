@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="my.project.good.api" />
+        <module name="my.project.common" />
+        <module name="my.project.pushMsg" />
+        <module name="my.project.eureka" />
+        <module name="my.project.order" />
+        <module name="my.project.auth2.api" />
+        <module name="my.project.gateway" />
+        <module name="my.project.user.api" />
+        <module name="my.project.pay" />
+        <module name="my.project.qg_good.api" />
+        <module name="my.project.pushMsg.api" />
+        <module name="my.project.user" />
+        <module name="my.project.forum" />
+        <module name="my.project.auth2" />
+        <module name="my.project.common.api" />
+        <module name="my.project.good" />
+        <module name="my.project.order.api" />
+        <module name="my.project.pay.api" />
+        <module name="my.project.qg_good" />
+        <module name="my.project.forum.api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="my.project.qg_good (1)" target="1.8" />
+      <module name="my.project.qg_good.consumer" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="my.project.common" options="" />
+      <module name="my.project.common.api" options="" />
+      <module name="my.project.eureka" options="" />
+      <module name="my.project.gateway" options="" />
+      <module name="my.project.good" options="" />
+      <module name="my.project.good.api" options="" />
+      <module name="my.project.qg_good" options="" />
+      <module name="my.project.qg_good.api" options="" />
+      <module name="my.project.user" options="" />
+      <module name="my.project.user.api" options="" />
+    </option>
+  </component>
+</project>

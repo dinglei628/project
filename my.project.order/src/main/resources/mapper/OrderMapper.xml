@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.OrderMapper">
+
+    <insert id="addOrder">
+        INSERT INTO order.order_info
+            (id,
+            orderName,
+            userId,
+            goodId,
+            STATUS,
+            price,
+            createDate,
+            updateDate
+            )
+            VALUES
+            (#{id},
+            #{orderName},
+            #{userId},
+            #{goodId},
+            #{status},
+            #{price},
+            now(),
+            now()
+            );
+    </insert>
+    <update id="updateOrderstatus">
+         UPDATE order.order_info
+            SET
+            STATUS = #{status},
+            updateDate = NOW(),
+            payTime = #{payTime}
+            WHERE
+            id = #{id};
+    </update>
+    <update id="delOrder">
+        UPDATE order.order_info
+            SET
+            deleteDate = NOW()
+            WHERE
+            id = #{id} ;
+    </update>
+    <select id="getOrderbyCondition" resultType="com.demo.entity.Order">
+        SELECT * FROM order_info
+        <where>
+            <if test="uid != null and uid != ''">
+                and userId = #{uid}
+            </if>
+            <if test="gid != null and gid != ''">
+                and goodId = #{gid}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and createDate Between #{startDate} and #{endDate}
+            </if>
+        </where>
+        ORDER BY updateDate DESC
+        LIMIT #{from},#{pageSize}
+    </select>
+    <select id="getOrderbyConditionCount" resultType="java.lang.Integer">
+         SELECT count(1) FROM order_info
+        <where>
+            <if test="uid != null and uid != ''">
+                and userId = #{uid}
+            </if>
+            <if test="gid != null and gid != ''">
+                and goodId = #{gid}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and createDate Between #{startDate} and #{endDate}
+            </if>
+        </where>
+
+    </select>
+    <select id="getOrderByUserId" resultType="com.demo.entity.Order">
+        SELECT * FROM order_info WHERE userId = #{uid}
+        ORDER BY updateDate DESC
+        LIMIT #{from},#{pageSize}
+    </select>
+    <select id="getOrderByUserIdCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM order_info WHERE userId = #{uid}
+    </select>
+    <select id="getById" resultType="com.demo.entity.Order">
+        select * from order_info where id = #{id}
+    </select>
+    <select id="getAwaitOrder" resultType="com.demo.entity.Order">
+        SELECT * FROM order_info
+            WHERE TIMESTAMPDIFF(MINUTE,createDate, NOW())>10
+            AND deleteDate IS NULL
+    </select>
+
+
+</mapper>

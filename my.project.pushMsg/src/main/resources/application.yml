@@ -1,0 +1,69 @@
+server:
+  port: 10003
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: PUSHMSG
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pushmsg?useSSL=false
+    username: root
+    password: ok
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    virtual-host: /
+    port: 5672
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+  redis:
+    database: 0
+    password: ok
+    host: localhost
+    port: 6379
+  mail:
+    host: smtp.163.com
+    username: zhou528120@163.com
+    password: zhou528120
+    enable:  true
+    smtp:
+      auth: true
+    starttls:
+      enable: true
+      required: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+  com.demo.mapper: debug
+#消息模板
+msg:
+  ordertemplate: 恭喜您的账户：{},已成功购买商品[]!
+  membertemplate: 恭喜您的账户：{},成为会员!
+  systemtemplate: 恭喜您的账户：{},注册成功!

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.auth2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.auth2.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.common.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.common.api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.forum" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.forum.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.good" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.good.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.order.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.pay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.pay.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.pushMsg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.pushMsg.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.qg_good" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.qg_good.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.user.api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.user.api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my.project.user/src/main/java" charset="UTF-8" />
+  </component>
+</project>

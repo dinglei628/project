@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.mapper.UserMapper">
+    <!--  <resultMap id="BaseResultMap" type="com.zb.entity.User">
+        &lt;!&ndash;@mbg.generated&ndash;&gt;
+        &lt;!&ndash;@Table user&ndash;&gt;
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phoneState" jdbcType="INTEGER" property="phonestate" />
+        <result column="emailState" jdbcType="INTEGER" property="emailstate" />
+        <result column="userName" jdbcType="VARCHAR" property="username" />
+        <result column="userPwd" jdbcType="VARCHAR" property="userpwd" />
+        <result column="age" jdbcType="INTEGER" property="age" />
+        <result column="sex" jdbcType="INTEGER" property="sex" />
+        <result column="perMsg" jdbcType="VARCHAR" property="permsg" />
+        <result column="vxId" jdbcType="VARCHAR" property="vxid" />
+        <result column="QQId" jdbcType="VARCHAR" property="qqid" />
+        <result column="picSrc" jdbcType="VARCHAR" property="picsrc" />
+      </resultMap>-->
+    <sql id="Base_Column_List">
+    id, phone, email, phoneState, emailState, userName, userPwd, age, sex, perMsg, vxId,
+    QQId, picSrc
+  </sql>
+
+
+
+
+</mapper>

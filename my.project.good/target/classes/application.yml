@@ -1,0 +1,49 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: GOODSERVICE
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/commodity
+    username: root
+    password: ok123
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: ok
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    virtual-host: /
+    port: 5672
+#    publisher-confirms: true
+#    publisher-returns: true
+#    template:
+#      mandatory: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual  #消费端手工ack的配置
+#        concurrency: 1
+#        max-concurrency: 5
+  cache:
+    ehcache:
+      config: classpath:/ehcache.xml
+    type: ehcache
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+my:
+  es: 127.1.1.0:9200
+qiniu:
+  accessKey: W_W6_JkYNwYtiTuc_JTFsKGGTPJJtN-ALw2Hhnrl
+  secretKey: pL6jPlGv3JVPlHpNqmyQ7m30BWQUeNT_ekvgo6Ii
+  bucket: dinglei
+  path: http://q6nljkfvz.bkt.clouddn.com/
