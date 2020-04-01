@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zb.mapper.TbPermissionMapper">
+    <select id="findPermissionListByUser" resultType="com.zb.entity.TbPermission">
+        SELECT p.* FROM tb_user u
+        INNER JOIN tb_role r
+        INNER JOIN `tb_user_role` ur
+        INNER JOIN `tb_permission` p
+        INNER JOIN `tb_role_permission` rp
+        ON u.`id`=ur.`user_id`
+        AND r.`id`=ur.`role_id`
+        AND r.id = rp.`role_id`
+        AND p.`id`=rp.`permission_id`
+        AND u.id = #{uid}
+    </select>
+</mapper>  

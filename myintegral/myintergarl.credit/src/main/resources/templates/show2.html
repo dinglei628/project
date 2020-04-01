@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>用户</td>
+        <td>积分</td>
+        <td>商品编号</td>
+    </tr>
+    <tr>
+        <td th:text="${exchangedBy.getId()}"></td>
+        <td th:text="${exchangedBy.getUser_id()}"></td>
+        <td th:text="${exchangedBy.getExchanged_credit()}"></td>
+        <td th:text="${exchangedBy.getProduct_id()}"></td>
+        <td>
+            <a href="/addexchanged">发货</a>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

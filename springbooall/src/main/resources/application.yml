@@ -1,0 +1,37 @@
+spring:
+  #MySql
+  datasource:
+    password: ok123
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/sel?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    #redis 配置
+  redis:
+    # Redis数据库索引
+    database: 0
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码
+    password: ok
+    #连接超时时间
+    timeout: 60s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
+    # 连接池配置，2.0中直接使用jedis或者lettuce配置连接池
+    jedis:
+      pool:
+        # 最大空闲连接数
+        max-idle: 500
+        # 最小空闲连接数
+        min-idle: 50
+        # 等待可用连接的最大时间，负数为不限制
+        max-wait: -1s
+        # 最大活跃连接数，负数为不限制
+        max-active: -1
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:/ehcache.xml
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>用户编号</td>
+        <td>用户积分</td>
+    </tr>
+    <tr>
+        <td th:text="${creditBy.getId()}"></td>
+        <td th:text="${creditBy.getUser_id()}"></td>
+        <td th:text="${creditBy.getCredit()}"></td>
+        <td>
+            <a href="/add">兑换</a>
+            <a href="/getexchanged">查看兑换商品</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

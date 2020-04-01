@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<a href="/user/type">添加房源</a>
+<table border="1">
+    <tr>
+        <td>编号</td>
+        <td>描述</td>
+        <td>类型</td>
+        <td>价格</td>
+        <td>发布日期</td>
+    </tr>
+    <tr th:each="l :${listHou}">
+        <td th:text="${l.getHouseId()}"></td>
+        <td th:text="${l.getHouseDesc()}"></td>
+        <td th:text="${l.getTypeName()}"></td>
+        <td th:text="${l.getMonthlyRent()}"></td>
+        <td th:text="${l.getPublishDate()}"></td>
+    </tr>
+</table>
+</body>
+</html>

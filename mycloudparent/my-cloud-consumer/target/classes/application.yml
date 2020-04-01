@@ -1,0 +1,20 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: user-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true #显示浏览器中的状态栏显示ip
+order-provider:
+  ribbon:
+    ConnectTimeout: 250 #连接超时时间
+    ReadTimeout: 1000 #数据读取超时时间
+    OkToRetryOnAllOperations: true #是否对所有操作进行重试
+    MaxAutoRetries: 1 #对当前实例的重试次数
+    MaxAutoRetriesNextServer: 1 #切换实例的重试次数
+
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

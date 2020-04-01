@@ -1,0 +1,18 @@
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: provider
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hou?useSSL=false
+    username: root
+    password: ok123
+mybatis:
+  mapper-locations: mapper/*.xml

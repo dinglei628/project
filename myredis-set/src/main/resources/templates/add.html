@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>商品ID</td>
+        <td>商品名称</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="c:${ck}">
+        <td th:text="${c.getId()}"></td>
+        <td th:text="${c.getNames()}"></td>
+        <td><a th:href="@{'/del?id='+${c.getId()}}">删除商品</a></td>
+    </tr>
+
+</table>
+<div th:text="'商品总数：'+${sum}"></div>
+</body>
+</html>

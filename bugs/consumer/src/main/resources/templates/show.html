@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form action="/show" method="get">
+    所属项目：<select name="projectId">
+    <option value="0">请选择</option>
+    <option th:each=" s:${select}" th:value="${s.getId()}" th:text="${s.getName()}"></option>
+</select>
+    <input type="submit" th:value="查询"/>
+</form>
+
+<a href="add.html"><button>添加bug</button></a>
+<table border="1">
+    <tr>
+        <td>编号</td>
+    <td>错误性</td>
+    <td>标题</td>
+    <td>报告人</td>
+    <td>报告时间</td>
+    </tr>
+
+    <tr th:each="d :${d}">
+        <td th:text="${d.getId()}"></td>
+        <td th:if="${d.getSeverity() eq 1}"  th:text="次要错误"></td>
+        <td th:if="${d.getSeverity() eq 2}" th:text="次要错误"></td>
+        <td th:if="${d.getSeverity() eq 3}" th:text="严重错误"></td>
+        <td th:text="${d.getTitle()}"></td>
+        <td th:text="${d.getReportUser()}"></td>
+        <td th:text="${d.getCreateDate()}"></td>
+    </tr>
+</table>
+</body>
+</html>

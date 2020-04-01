@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zb.mapper.ProblemMapper">
+    <select id="getArticleCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `problem`
+
+        <if test="type!=null and type!=''">
+            where type = #{type}
+        </if>
+
+    </select>
+
+    <select id="getProblemCountByYes" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `problem`
+
+        <where>
+            stats ="2"
+            <if test="type != null and type!=''">
+                and `type` = #{type}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getProblemCountByNo" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `problem`
+
+        <where>
+            stats ="1"
+            <if test="type != null and type!=''">
+                and `type` = #{type}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getShow" resultType="com.zb.entity.Problem">
+        SELECT * FROM `problem`
+        <if test="type != null and type!=''">
+            where `type` = #{type}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{page.start} , #{page.pageSize}
+    </select>
+
+    <select id="getShowByYes" resultType="com.zb.entity.Problem">
+        SELECT * FROM `problem`
+        <where>
+            stats ="2"
+            <if test="type != null and type!=''">
+                and `type` = #{type}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        LIMIT #{page.start} , #{page.pageSize}
+    </select>
+
+    <select id="getShowByNo" resultType="com.zb.entity.Problem">
+        SELECT * FROM `problem`
+        <where>
+            stats ="1"
+            <if test="type != null and type!=''">
+                and `type` = #{type}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        LIMIT #{page.start} , #{page.pageSize}
+    </select>
+
+    <select id="getShowById" resultType="com.zb.entity.Problem">
+        SELECT * FROM `problem` where id = #{id}
+    </select>
+
+    <insert id="insertArticle">
+        INSERT INTO `problem` (
+          `id`,
+          `title`,
+          `user_id`,
+          `content`,
+          `type`,
+          `create_time`,
+          `stats`
+        )
+        VALUES
+          (
+            #{id},
+            #{title},
+            #{user_id},
+            #{content},
+            #{type},
+            NOW(),
+            #{stats}
+          );
+    </insert>
+
+</mapper>  

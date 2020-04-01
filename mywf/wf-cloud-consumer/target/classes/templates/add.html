@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form action="/user/insert" method="post">
+    描述：<input type="text" name="houseDesc"/>
+    <br/>
+    类型：<select name="typeId">
+                <option th:each="l:${listType}" th:value="${l.getTypeId()}" th:text="${l.getTypeName()}"></option>
+         </select>
+    价格：<input type="text" name="monthlyRent"/>
+    <input type="submit" value="添加"/>
+</form>
+</body>
+</html>

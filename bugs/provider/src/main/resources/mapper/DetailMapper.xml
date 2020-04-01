@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zb.mapper.DetailMapper">
+    <select id="getDetailList" resultType="com.zb.bug_detail">
+        SELECT d.*,p.name
+        FROM bug_detail d
+        INNER JOIN bug_project p
+        ON d.projectId = p.id
+        WHERE 1=1
+        <if test="projectId != null and projectId != 0">
+            AND projectId = #{projectId}
+        </if>
+    </select>
+
+    <select id="getSelect" resultType="com.zb.bug_project">
+        select * from bug_project
+    </select>
+    <insert id="insert" parameterType="com.zb.bug_detail">
+        INSERT INTO bugs.bug_detail
+	(
+	projectId,
+	severity,
+	title,
+	reportUser,
+	createDate
+	)
+	VALUES
+	(
+	#{projectId},
+	#{severity},
+	#{title},
+	#{reportUser},
+	NOW()
+	);
+
+    </insert>
+</mapper>

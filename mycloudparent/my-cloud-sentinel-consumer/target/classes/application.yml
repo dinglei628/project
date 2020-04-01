@@ -1,0 +1,20 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: user-consumer
+  cloud:
+    sentinel:
+      transport:
+        dashboard: http://localhost:8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true #显示浏览器中的状态栏显示ip
+
+feign:
+  hystrix:
+    enabled: true
+

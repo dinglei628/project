@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zb.mapper.ProductMapper">
+    <select id="getSel" resultType="com.zb.entity.product">
+        select * from product
+    </select>
+
+    <insert id="insert" parameterType="com.zb.entity.takeout">
+        INSERT INTO product.takeout
+	(
+	quantity,
+	outDate,
+	`handler`,
+	productId
+	)
+	VALUES
+	(
+	#{quantity},
+	now(),
+	#{handler},
+	#{productId}
+	);
+    </insert>
+
+    <update id="update" parameterType="com.zb.entity.takeout">
+        update product set quantity =quantity - #{quantity} where id=#{id}
+    </update>
+</mapper>

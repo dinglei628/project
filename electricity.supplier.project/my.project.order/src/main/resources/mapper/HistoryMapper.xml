@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.HistoryMapper">
+
+    <insert id="addHistory">
+        INSERT INTO order.order_history
+            (id,
+            orderId,
+            orderName,
+            userId,
+            userName,
+            goodId,
+            goodName,
+            ispay,
+            orderPrice,
+            createDate,
+            orderCreateDate,
+            payDate
+            )
+            VALUES
+            (#{id},
+            #{orderId},
+            #{orderName},
+            #{userId},
+            #{userName},
+            #{goodId},
+            #{goodName},
+            #{ispay},
+            #{orderPrice},
+            NOW(),
+            #{orderCreateDate},
+            #{payDate}
+            );
+    </insert>
+    <select id="getHisOrderByUserId" resultType="com.demo.entity.History">
+        SELECT * FROM order_history WHERE userId = #{uId}
+        limit #{from},#{pageSize}
+    </select>
+    <select id="getHisOrderByUserIdCount" resultType="java.lang.Integer">
+         SELECT count(1) FROM order_history WHERE userId = #{uId}
+    </select>
+    <select id="getHisOrderbyCondition" resultType="com.demo.entity.History">
+        SELECT * FROM order_history
+        <where>
+            <if test="uid != null and uid != ''">
+                and userId = #{uid}
+            </if>
+            <if test="gid != null and gid != ''">
+                and goodId = #{gid}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and createDate Between #{startDate} and #{endDate}
+            </if>
+        </where>
+        ORDER BY createDate DESC
+        LIMIT #{from},#{pageSize}
+    </select>
+    <select id="getHisOrderbyConditionCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM order_history
+        <where>
+            <if test="uid != null and uid != ''">
+                and userId = #{uid}
+            </if>
+            <if test="gid != null and gid != ''">
+                and goodId = #{gid}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and createDate Between #{startDate} and #{endDate}
+            </if>
+        </where>
+    </select>
+    <select id="getById" resultType="com.demo.entity.History">
+        SELECT * FROM order_history where id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="myintergarl.credit.api" />
+        <module name="myintergarl.credit" />
+        <module name="myintegral.getwer" />
+        <module name="myintegral.common.api" />
+        <module name="myintegarl.eureka" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

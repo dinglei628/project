@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smbms.my.dao.UserMapper">
+
+	<select id="listUsers" resultType="com.smbms.my.pojo.User">
+		select * from smbms_user limit #{from},#{pageSize}
+	</select>
+
+	<select id="getCount" resultType="int">
+		select count(1) from smbms_user
+	</select>
+
+	<select id="getUserById" resultType="com.smbms.my.pojo.User">
+		select * from smbms_user where id = #{id}
+	</select>
+
+	<update id="updateUser" parameterType="com.smbms.my.pojo.User">
+		update smbms_user set userCode=#{userCode},userName = #{userName},birthday=#{birthday},modifyDate=NOW() where id = #{id}
+	</update>
+</mapper>

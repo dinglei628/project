@@ -1,0 +1,9 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: order-provider
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:ok@localhost:7001/eureka/

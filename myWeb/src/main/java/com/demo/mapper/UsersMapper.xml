@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.UsersMapper">
+
+    <select id="getLogin" resultType="com.demo.entity.Users">
+        select * from users where userName = #{userName}
+    </select>
+
+    <select id="getSel" resultType="com.demo.entity.Product">
+        select * from Product
+    </select>
+
+    <insert id="insert" parameterType="int">
+        INSERT INTO sale(productId,price,quantity,saleDate,userId)VALUES(#{productId},#{price},#{quantity},now(),#{userId})
+    </insert>
+
+    <select id="getSaleList" resultType="com.demo.entity.Sale">
+        SELECT s.*,p.productName
+        FROM sale s
+        INNER JOIN product p
+        ON s.productId = p.id
+        where 1=1
+        <if test="userId != 0">
+            AND userId = #{userId}
+        </if>
+        <if test="a == 1">
+            ORDER BY s.saleDate DESC
+        </if>
+        <if test="a == 2">
+            ORDER BY s.totalPrice  DESC
+        </if>
+        LIMIT #{from},#{pageSize}
+    </select>
+    <select id="getSaleCount" resultType="int">
+        select count(1) from sale where 1=1
+        <if test="userId != 0">
+            AND userId = #{userId}
+        </if>
+        <if test="a == 1">
+            ORDER BY saleDate DESC
+        </if>
+        <if test="a == 2">
+            ORDER BY totalPrice DESC
+        </if>
+    </select>
+
+
+    <update id="update" parameterType="int">
+
+    </update>
+
+    <select id="getOne" resultType="com.demo.entity.Product">
+        select * from Product where productName = #{productName}
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zb.mapper.HouseinfoMapper">
+
+    <select id="getListHou" resultType="com.zb.entity.Houseinfo">
+        SELECT h.*,t.typename
+		FROM houseinfo h
+		INNER JOIN housetype t
+		ON h.typeId = t.typeId
+		ORDER BY h.publishDate DESC
+    </select>
+
+    <select id="getListType" resultType="com.zb.entity.Housetype">
+        select * from housetype
+    </select>
+
+    <insert id="insert" parameterType="com.zb.entity.Houseinfo">
+        INSERT INTO hou.houseinfo
+	(
+	houseDesc,
+	typeId,
+	monthlyRent,
+	publishDate
+	)
+	VALUES
+	(
+	#{houseDesc},
+	#{typeId},
+	#{monthlyRent},
+	now()
+	);
+
+    </insert>
+
+</mapper>

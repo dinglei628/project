@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.PayMapper">
+
+    <insert id="addPay">
+       INSERT INTO pay.pay_info
+            (id,
+            orderId,
+            isPay,
+            way,
+            createDate,
+            mentDate,
+            amount,
+            SUBJECT
+            )
+            VALUES
+            (#{id},
+            #{orderId},
+            #{isPay},
+            #{way},
+            #{createDate},
+            #{mentDate},
+            #{amount},
+            #{subject}
+            );
+
+    </insert>
+     <update id="updatePayInfo">
+         UPDATE pay.pay_info
+            SET
+            isPay = #{status} ,
+            mentDate = #{mentDate}
+            WHERE
+            id = #{id} ;
+     </update>
+     <select id="getPayById" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM pay_info WHERE id = #{id}
+    </select>
+    <select id="getPayByIdAndStatus" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM pay_info WHERE id = #{id} and isPay = #{status}
+    </select>
+    <select id="getPayByOrderId" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM pay_info WHERE orderId = #{oId}
+    </select>
+    <select id="isPay" resultType="com.demo.entity.Pay">
+        SELECT * FROM pay_info
+            WHERE orderId = #{oId} AND isPay = '666'
+    </select>
+</mapper>

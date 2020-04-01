@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zb.mapper.QgGoodsMapper">
+
+    <select id="getQgGoodBy" resultType="com.zb.pojo.qg_good_infrom">
+        SELECT * FROM qg_good_infrom WHERE updatedTime > NOW()
+    </select>
+
+    <select id="getQgGoodsById" resultType="com.zb.pojo.qg_good_infrom">
+        SELECT * FROM qg_good_infrom WHERE qg_id=#{qg_id}
+    </select>
+</mapper>
