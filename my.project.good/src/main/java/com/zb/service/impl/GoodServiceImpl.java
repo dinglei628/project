@@ -1,7 +1,12 @@
 package com.zb.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.zb.dto.Dto;
+import com.zb.dto.DtoUtil;
 import com.zb.dto.Page;
+import com.zb.entity.User;
+import com.zb.feign.AuthFeignClient;
+import com.zb.feign.OrderFeignClient;
 import com.zb.mapper.GoodMapper;
 import com.zb.pojo.Video_data;
 import com.zb.pojo.Videoaddress;
@@ -37,46 +42,61 @@ public class GoodServiceImpl implements GoodService {
     @Autowired
     RedisUtils redisUtils;
 
+    @Autowired
+    AuthFeignClient authFeignClient;
+
+    @Autowired
+    OrderFeignClient orderFeignClient;
+
 
     @Override
     @Cacheable(value = "cache" ,key="#id")
-    public Video_data getVideoById(Integer id,Integer pageSize,String token) {
+    public Dto getVideoById(Integer id, Integer pageSize, String token) {
         //判断用户是否登录
-        if(token != null){
-
-        }
-        Video_data notVip = goodMapper.getNotVip(id);
-        //判断视频是否是会员或免费或需要购买才能观看  0:免费  1:会员 2:购买
-        if(notVip.getNotVip() == 0){
-            List<Video_data> videoByList = goodMapper.getVideoByList(pageSize);
-            for (Video_data v:videoByList){
-                if(v.getId() == id){
-                    System.out.println("热点数据。。。");
-                    return toVideoById(id,pageSize);
+        if(authFeignClient.userinfo(token) != null){
+            Video_data notVip = goodMapper.getNotVip(id);
+            //判断视频是否是会员或免费或需要购买才能观看  0:免费  1:会员 2:购买
+            if(notVip.getNotVip() == 0){
+                List<Video_data> videoByList = goodMapper.getVideoByList(pageSize);
+                for (Video_data v:videoByList){
+                    if(v.getId() == id){
+                        System.out.println("热点数据。。。");
+                        //return DtoUtil.returnSuccess(id.toString(),pageSize);
+                        return toVideoById(id,pageSize,token);
+                    }
                 }
+                Video_data videoById = null;
+                String key = "good_"+id;
+                if(redisUtils.hasKey(key)){
+                    System.out.println("1redis中获取数据。。。");
+                    String json = redisUtils.get(key).toString();
+                    videoById = JSON.parseObject(json, Video_data.class);
+                    System.out.println("1redis中获取数据。。。");
+                }else{
+                    System.out.println("1mysql中获取数据。。。");
+                    videoById = goodMapper.getVideoById(id);
+                    redisUtils.set(key, JSON.toJSONString(videoById));
+                }
+                goodMapper.UpVideoById(id);
+                if(notVip.getNotVip() == 1 && token.equals("会员")){
+                    //视频信息为1(会员)并且登录用户也是会员可以观看
+                }
+                if(notVip.getNotVip() == 2){
+                    //进入购买页面
+                    //直接调用的创建订单方法
+                    orderFeignClient.createOrder(token,id.toString());
+                }
+                //返回商品编号
+                DtoUtil.returnDataSuccess(videoById);
+                //return videoById;
             }
-            Video_data videoById = null;
-            String key = "good_"+id;
-            if(redisUtils.hasKey(key)){
-                System.out.println("1redis中获取数据。。。");
-                String json = redisUtils.get(key).toString();
-                videoById = JSON.parseObject(json, Video_data.class);
-                System.out.println("1redis中获取数据。。。");
-            }else{
-                System.out.println("1mysql中获取数据。。。");
-                videoById = goodMapper.getVideoById(id);
-                redisUtils.set(key, JSON.toJSONString(videoById));
-            }
-            goodMapper.UpVideoById(id);
-            return videoById;
+            //返回是否是会员编号
+            DtoUtil.returnDataSuccess(notVip);
+            //return notVip;
+        }else{
+            //调用登录方法
         }
-        if(notVip.getNotVip() == 1 && token.equals("会员")){
-            return null;
-        }
-        if(notVip.getNotVip() == 2){
-            return null;
-        }
-        return notVip;
+       return DtoUtil.returnSuccess("。。。。");
     }
 
     @Override
@@ -90,22 +110,35 @@ public class GoodServiceImpl implements GoodService {
      * @param pageSize
      * @return
      */
-    public Video_data toVideoById(Integer id,Integer pageSize) {
+    public Dto toVideoById(Integer id,Integer pageSize,String token) {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        Video_data videoById = null;
-        String key = "good_"+id;
-        if(redisUtils.hasKey(key)){
-            System.out.println("2redis中获取数据");
-            String json = redisUtils.get(key).toString();
-            videoById = JSON.parseObject(json, Video_data.class);
-            System.out.println("2redis中获取数据");
-        }else{
-            System.out.println("2mysql中获取数据");
-            videoById = goodMapper.getVideoById(id);
-            redisUtils.set(key, JSON.toJSONString(videoById));
+        Video_data notVip = goodMapper.getNotVip(id);
+        if(notVip.getNotVip() == 0){
+            Video_data videoById = null;
+            String key = "good_"+id;
+            if(redisUtils.hasKey(key)){
+                System.out.println("2redis中获取数据");
+                String json = redisUtils.get(key).toString();
+                videoById = JSON.parseObject(json, Video_data.class);
+                System.out.println("2redis中获取数据");
+            }else{
+                System.out.println("2mysql中获取数据");
+                videoById = goodMapper.getVideoById(id);
+                redisUtils.set(key, JSON.toJSONString(videoById));
+            }
+            goodMapper.UpVideoById(id);
+            if(notVip.getNotVip() == 1 && token.equals("会员")){
+                //视频信息为1(会员)并且登录用户也是会员可以观看
+            }
+            if(notVip.getNotVip() == 2){
+                //进入购买页面
+                //直接调用的创建订单方法
+                orderFeignClient.createOrder(authFeignClient.userinfo(token).toString(),id.toString());
+            }
+            return DtoUtil.returnDataSuccess(videoById);
         }
-        goodMapper.UpVideoById(id);
-        return videoById;
+        return DtoUtil.returnSuccess("。。。。");
+        //return videoById;
     }
 
 

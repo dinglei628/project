@@ -1,5 +1,6 @@
 package com.zb.service;
 
+import com.zb.dto.Dto;
 import com.zb.dto.Page;
 import com.zb.pojo.Video_data;
 import com.zb.pojo.Videoaddress;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface GoodService {
-    Video_data getVideoById(Integer id,Integer pageSize,String token);
+    Dto getVideoById(Integer id, Integer pageSize, String token);
 
     List<Videoaddress> getVideoAddRess(Integer videoTypeId);
 

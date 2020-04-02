@@ -12,6 +12,20 @@
     <artifactId>my.project.good</artifactId>
 
     <dependencies>
+        <!--获取用户登录token-->
+        <dependency>
+            <groupId>com.zb</groupId>
+            <artifactId>my.project.auth2.api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--购买商品-->
+        <dependency>
+            <groupId>com.zb</groupId>
+            <artifactId>my.project.order</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.zb</groupId>
             <artifactId>my.project.common.api</artifactId>
