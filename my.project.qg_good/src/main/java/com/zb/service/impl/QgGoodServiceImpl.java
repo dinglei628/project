@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
 import com.zb.config.RabbitConfig;
 import com.zb.dto.Dto;
+import com.zb.entity.User;
+import com.zb.feign.AuthFeignClient;
+import com.zb.feign.OrderFeignClient;
 import com.zb.mapper.QgGoodInendMapper;
 import com.zb.mapper.QgGoodsMapper;
 import com.zb.pojo.qg_good_end;
@@ -39,6 +42,10 @@ public class QgGoodServiceImpl implements QgGoodService {
     private QgGoodInendMapper qgGoodInendMapper;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private AuthFeignClient authFeignClient;
+    @Autowired
+    private OrderFeignClient orderFeignClient;
 
     public RabbitTemplate.ConfirmCallback confirmCallback=new RabbitTemplate.ConfirmCallback() {
         @Override
@@ -100,7 +107,7 @@ public class QgGoodServiceImpl implements QgGoodService {
 //        qg_good_end.setAmount(goodsVo.getPrice());
         qg_good_end.setAmount(qgGoodsById.getVideoPrice());
         qg_good_end.setGoodsId(Integer.parseInt(goodsId));
-        qg_good_end.setUserId(Integer.parseInt("1"));
+        qg_good_end.setUserId(Integer.parseInt(userId));
         //修改redis中的库存数据
         redisUtils.set(key, JSON.toJSONString(goodsVo));
         //执行临时抢购的商品添加
@@ -129,8 +136,9 @@ public class QgGoodServiceImpl implements QgGoodService {
         token= mqMessage.getToken();
         goodsId= mqMessage.getGoodsId();
         //验证用户是否登录
+        User userinfo = authFeignClient.userinfo(token);
         String currentUser = "user1";
-        if (currentUser == null) {
+        if (userinfo == null) {
             return ;
         }
         String key="lock:"+goodsId;
@@ -144,7 +152,7 @@ public class QgGoodServiceImpl implements QgGoodService {
                 return ;
             }
             //执行用户锁定商品
-            val = this.lockGoods(goodsId, currentUser);
+            val = this.lockGoods(goodsId, userinfo.getId());
             if (val > 0) {
                 channel.basicAck(tag,false);
                 System.out.println("nack"+goodsId+"..."+token);
