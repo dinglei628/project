@@ -6,10 +6,11 @@
 <mapper namespace="com.zb.mapper.QgGoodsMapper">
 
     <select id="getQgGoodBy" resultType="com.zb.pojo.qg_good_infrom">
-        SELECT * FROM qg_good_infrom WHERE updatedTime > NOW()
+        SELECT * FROM qg_good_infrom WHERE 1=1 and updatedTime > NOW() and stock = 1
     </select>
 
     <select id="getQgGoodsById" resultType="com.zb.pojo.qg_good_infrom">
         SELECT * FROM qg_good_infrom WHERE qg_id=#{qg_id}
     </select>
+
 </mapper>

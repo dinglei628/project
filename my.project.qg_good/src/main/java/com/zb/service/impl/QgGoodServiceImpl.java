@@ -175,8 +175,18 @@ public class QgGoodServiceImpl implements QgGoodService {
 
     @Override
     public List<qg_good_infrom> getQgGoodBy() {
-        List<qg_good_infrom> qgGoodBy = qgGoodsMapper.getQgGoodBy();
-        return qgGoodBy;
+        List<qg_good_infrom> list = null;
+        String key = "qgGood";
+        if(redisUtils.hasKey(key)){
+            System.out.println("redis");
+            String s = redisUtils.get(key);
+            list = JSON.parseArray(s, qg_good_infrom.class);
+        }else{
+            System.out.println("db");
+            list = qgGoodsMapper.getQgGoodBy();
+            redisUtils.set(key,JSON.toJSONString(list));
+        }
+        return list;
     }
 
 }
